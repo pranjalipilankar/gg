@@ -1,0 +1,3 @@
+0 Organic Waste
+1 Plastic
+2 Paper and Cardboard
