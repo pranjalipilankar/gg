@@ -1,6 +1,12 @@
-import 'package:flutter/cupertino.dart';
+// lib/screens/home_page_container_screen.dart
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:green_gather/provider/comment_provider.dart';
+import 'package:green_gather/presentation/comment_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:green_gather/presentation/comment_screen.dart';
 import 'package:green_gather/presentation/home_page/home_page.dart';
 import 'package:green_gather/presentation/image_upload_screen/image_upload_screen.dart';
 import 'package:green_gather/presentation/maps_page_screen/maps_page_screen.dart';
@@ -49,7 +55,6 @@ class _HomePageContainerScreenState extends State<HomePageContainerScreen> {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
         if (type == BottomBarEnum.Survey) {
-          // Navigate to SurveyForm and handle completion
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -66,7 +71,6 @@ class _HomePageContainerScreenState extends State<HomePageContainerScreen> {
                   required List<String> wasteDisposalFacility,
                 }) {
                   setState(() {
-                    // Set survey completion and store data
                     surveyCompleted = true;
                     this.instituteName = instituteName;
                     this.pincode = pincode;
@@ -84,7 +88,6 @@ class _HomePageContainerScreenState extends State<HomePageContainerScreen> {
             ),
           );
         } else if (type == BottomBarEnum.Report && surveyCompleted) {
-          // Navigate to PieChartScreen with updated values
           Navigator.push(
             context,
             AppRoutes.reportPageScreen(
@@ -96,8 +99,17 @@ class _HomePageContainerScreenState extends State<HomePageContainerScreen> {
               wasteDisposalFacility: wasteDisposalFacility,
             ),
           );
+        } else if (type == BottomBarEnum.Comments) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                create: (context) => CommentProvider()..fetchComments(),
+                child: CommentsPage(),
+              ),
+            ),
+          );
         } else {
-          // Handle navigation for other bottom bar items
           Navigator.pushNamed(context, getCurrentRoute(type));
         }
       },
@@ -110,8 +122,8 @@ class _HomePageContainerScreenState extends State<HomePageContainerScreen> {
         return AppRoutes.homePage;
       case BottomBarEnum.Maps:
         return AppRoutes.mapsPageScreen;
-      case BottomBarEnum.Scan:
-        return AppRoutes.imageuploadscreen;
+      case BottomBarEnum.Comments:
+        return AppRoutes.commentsscreen;
       default:
         return AppRoutes.homePage;
     }
@@ -121,8 +133,11 @@ class _HomePageContainerScreenState extends State<HomePageContainerScreen> {
     switch (currentRoute) {
       case AppRoutes.homePage:
         return HomePage();
-      case AppRoutes.imageuploadscreen:
-        return HomePage();
+      case AppRoutes.commentsscreen:
+        return ChangeNotifierProvider(
+          create: (context) => CommentProvider()..fetchComments(),
+          child: CommentsPage(),
+        );
       case AppRoutes.mapsPageScreen:
         return RecyclingMap();
       case AppRoutes.surveyScreen:
@@ -139,7 +154,6 @@ class _HomePageContainerScreenState extends State<HomePageContainerScreen> {
             required List<String> wasteDisposalFacility,
           }) {
             setState(() {
-              // Set survey completion and store data
               surveyCompleted = true;
               this.instituteName = instituteName;
               this.pincode = pincode;

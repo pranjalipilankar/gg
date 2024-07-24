@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/app_export.dart';
 
-enum BottomBarEnum { Home, Maps, Scan, Survey, Report }
+enum BottomBarEnum { Home, Maps, Comments, Survey, Report }
 // ignore_for_file: must_be_immutable
 
 // ignore_for_file: must_be_immutable
@@ -35,8 +35,8 @@ class CustomBottomBarState extends State<CustomBottomBar> {
     BottomMenuModel(
       icon: ImageConstant.imgMdiLineScan,
       activeIcon: ImageConstant.imgMdiLineScan,
-      title: "Scan",
-      type: BottomBarEnum.Scan,
+      title: "Comments",
+      type: BottomBarEnum.Comments,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgNavSurvey,

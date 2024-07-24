@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:green_gather/presentation/home_page_container_screen/home_page_container_screen.dart';
 import 'package:green_gather/presentation/image_upload_screen/image_upload_screen.dart';
@@ -11,6 +13,7 @@ import '../presentation/onboarding_fone_screen/onboarding_fone_screen.dart';
 import '../presentation/onboarding_fthree_screen/onboarding_fthree_screen.dart';
 import '../presentation/onboarding_ftwo_screen/onboarding_ftwo_screen.dart';
 import '../presentation/welcome_screen/welcome_screen.dart';
+import 'package:green_gather/presentation/comment_screen.dart';
 
 class AppRoutes {
   static const String welcomeScreen = '/welcome_screen';
@@ -24,8 +27,10 @@ class AppRoutes {
   static const String mapsPageScreen = '/maps_page_screen';
   static const String surveyScreen = '/survey_screen';
   static const String imageuploadscreen = '/image_upload_screen';
+  static const String commentsscreen = '/comment_screen';
 
   static Map<String, WidgetBuilder> routes = {
+    commentsscreen: (context) => CommentsPage(),
     homePageContainerScreen: (context) => HomePageContainerScreen(),
     welcomeScreen: (context) => WelcomeScreen(),
     onboardingFoneScreen: (context) => OnboardingFoneScreen(),
